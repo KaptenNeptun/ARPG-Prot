@@ -9,15 +9,15 @@ public class CursorAffordance : MonoBehaviour
     [SerializeField] Texture2D targetCursor = null;
     [SerializeField] Texture2D unknownCursor = null;
     [SerializeField] Vector2 cursorHotspot = new Vector2(1, 1);
-    CameraRaycaster camRay;
+    CameraRaycaster camRaycaster;
 	// Use this for initialization
 	void Start () {
-        camRay = this.gameObject.GetComponent<CameraRaycaster>();
-        camRay.onLayerChangeObs += CursorLayerCheck; //registering a delegate
+        camRaycaster = GetComponent<CameraRaycaster>();
+        camRaycaster.onLayerChangeObs += CursorLayerCheck;
 	}
+
 	//TODO consider deregistering CursorLayerCheck on leaving scenes
-	// Update is called once per frame
-	void CursorLayerCheck(Layer newLayer)
+	void CursorLayerCheck(Layer newLayer) //Checks what layer the cursor hits and changes the cursor graphics depending on the layer
     {
         switch(newLayer)
         {
@@ -33,7 +33,6 @@ public class CursorAffordance : MonoBehaviour
             default:
                 return;
         }
-
-        print("Layerhit is " + camRay.currentLayerHit);
+        print("Layerhit is " + camRaycaster.currentLayerHit);
 	}
 }

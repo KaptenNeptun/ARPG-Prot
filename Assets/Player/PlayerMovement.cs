@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G)) //TODO add buttonBinding later
+        //TODO add buttonBinding later
+        if (Input.GetKeyDown(KeyCode.G)) //Switches between classic Diablo-style movement and Wasd controls
         {
             isInDirectMode = !isInDirectMode;
             print("DirectMode is: " + isInDirectMode);
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
             ProcessMouseMovement();
         }
     }
-    void ProcessDirectMovement()
+    void ProcessDirectMovement() //Wasd-style movement
     {
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
@@ -51,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
         character.Move(movement, false, false);
     }
-    void ProcessMouseMovement() //Handles mouseMovement and other input
+    void ProcessMouseMovement() //Handles mouseMovement and other input - Diablo-movement
     {
         if (Input.GetMouseButton(0))
         {
@@ -63,26 +64,26 @@ public class PlayerMovement : MonoBehaviour
                     currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
                     break;
                 case Layer.Enemy:
+                    clickPoint.Set(clickPoint.x, 0,clickPoint.z); //TODO: Make a better fix that works on different elevations
                     currentDestination = ShortDestination(clickPoint, weaponReach);
                     break;
                 default:
                     print("WHY OH WHY!?");
                     break;
             }
-
         }
         WalkToDestination();
     }
 
-    private void WalkToDestination()
+    private void WalkToDestination() 
     {
         var playerToClickPoint = currentDestination - transform.position;
         if (Vector3.Magnitude(playerToClickPoint) >= 0.05f)
-            character.Move(playerToClickPoint, false, false);
+            character.Move(playerToClickPoint, false, false); //TODO: Create my own character move-script
         else
             character.Move(Vector3.zero, false, false);
     }
-    Vector3 ShortDestination(Vector3 destination, float shortening)
+    Vector3 ShortDestination(Vector3 destination, float shortening) //
     {
         if (Vector3.Magnitude(destination - transform.position) >= shortening)
         {
@@ -101,9 +102,8 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawSphere(currentDestination,0.1f);
         Gizmos.DrawSphere(clickPoint,0.15f);
 
-        //Gizmos.color = new Color(255f, 0f, 0f, 0.5f);
-        //Gizmos.DrawWireSphere(transform.position, weaponReach);
-        //print("Gizmos drawn");
+        Gizmos.color = new Color(255f, 0f, 0f, 0.5f);
+        Gizmos.DrawWireSphere(transform.position, weaponReach);
     }
 
 }
