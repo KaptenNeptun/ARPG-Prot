@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
             ProcessMouseMovement();
         }
     }
-    void ProcessDirectMovement() //Wasd-style movement
+    void ProcessDirectMovement() //Wasd-style movement, won't be touched for a while
     {
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");

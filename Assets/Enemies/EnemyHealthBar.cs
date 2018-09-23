@@ -7,15 +7,13 @@ public class EnemyHealthBar : MonoBehaviour
 {
     RawImage healthBarRawImage = null;
     Enemy enemy = null;
-
-    // Use this for initialization
+    //TODO: Better Health Bar
     void Start()
     {
-        enemy = GetComponentInParent<Enemy>(); // Different to way player's health bar finds player
+        enemy = GetComponentInParent<Enemy>(); 
         healthBarRawImage = GetComponent<RawImage>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         float xValue = -(enemy.healthAsPercentage / 2f) - 0.5f;
