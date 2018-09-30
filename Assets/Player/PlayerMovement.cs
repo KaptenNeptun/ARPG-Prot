@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         else
             character.Move(Vector3.zero, false, false);
     }
-    Vector3 ShortDestination(Vector3 destination, float shortening) //
+    Vector3 ShortDestination(Vector3 destination, float shortening)
     {
         if (Vector3.Magnitude(destination - transform.position) >= shortening)
         {
